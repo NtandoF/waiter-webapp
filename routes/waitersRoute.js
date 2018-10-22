@@ -15,7 +15,7 @@ module.exports = (waiterServices) => {
     const getBookingOfDays = async (req, res, next) => {
         try {
             let username = req.params.username;
-            let checkwaiter = await waiterServices.checkWaiter(username);
+            let checkwaiter = await (username);
             if (checkwaiter === 'welcome') {
                 req.flash('greet', `Welcome ${username} please select the days you want to book`);
             } else if (checkwaiter === 'exist') {
@@ -28,26 +28,26 @@ module.exports = (waiterServices) => {
         }
     };
 
-    const goToHome = async (req, res, next) => {
-        try {
-            res.render('home');
-        } catch (err) {
-            next(err.stack);
-        }
-    };
-    const clear = async (req, res, next) => {
-        try {
-            await waiterServices.reset();
-            res.redirect('/days');
-        } catch (err) {
-            next(err.stack);
-        }
-    };
+    // const goToHome = async (req, res, next) => {
+    //     try {
+    //         res.render('home');
+    //     } catch (err) {
+    //         next(err.stack);
+    //     }
+    // };
+    // const clear = async (req, res, next) => {
+    //     try {
+    //         await waiterServices.reset();
+    //         res.redirect('/days');
+    //     } catch (err) {
+    //         next(err.stack);
+    //     }
+    // };
 
     return {
         bookingOfDays,
-        getBookingOfDays,
-        goToHome,
-        clear
+        getBookingOfDays
+        // goToHome,
+        // clear
     };
 };
