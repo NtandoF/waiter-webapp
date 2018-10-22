@@ -1,0 +1,41 @@
+ <html>
+
+<head>
+  <link rel="stylesheet" href="css/waiters.css">
+  <title>Waiters App</title>
+</head>
+
+<div class="row">
+  <div style="text-align:center; box-shadow: 0 8px 6px -6px black; box-shadow: 0 8px 6px -6px black;" class=" flow-text col s12 m12 l12">
+<h3 class="">Waiters Weekly Schedule</h3> 
+  </div>
+  
+</div>
+<div class="row">
+     <input placeholder="Enter Your Username" type="text" name="WaitersEntered" class="Input">
+</div>
+
+<div class="rows">
+<form action="/waiters/{{username}}" method="post">
+  <div class="greet">
+    <h5 class="flow-text" >{{messages.greet}}</h5>
+    <br>
+  </div>
+    {{#each displayDays}}
+    <div class=" days col s6 l1">
+      <label>
+    <input type="checkbox" id="day2" name="day" value="{{weekday}}" {{checked}}/>
+    <span>{{weekday}}</span>
+  </label>
+  </div>
+  {{/each}}
+ 
+  </div>
+  <br>
+  <div class="row">
+  <div class=" but col s10" >
+    <input style="padding:10px; background-color:rgb(12, 195, 12); color:white" type="submit" value="Submit">
+  </div>
+  </div>
+</form>
+</div>
