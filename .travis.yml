@@ -10,7 +10,7 @@ node_js:
         - "8.9.4"
 
 before_script:
-  - psql -c 'create database  weekly_planning;' -U postgres
+  - psql -c 'create database weekly_planning;' -U postgres
   - psql -U postgres -d weekly_planning -a -f table.sql
 
 addons:
