@@ -1,0 +1,88 @@
+@import "compass";
+
+.angle-gradient {
+  background-image: url('https://gallery.kissclipart.com/20180829/vuw/kissclipart-food-service-png-clipart-waiter-computer-icons-7cac96614facaf63.png');
+  background-size: 100%;
+  width: 1000px;
+  height: 670px;
+}
+
+h3{
+  text-align: center
+}
+
+body{
+  margin-top: 10px;
+background-color: #f9f9f9;
+}
+
+p{
+  text-align: center;
+  font-size: 16px;
+  font-weight: bolder; 
+}
+
+.test{
+  display: inline-table;
+}
+
+.green{
+  background-color:green;
+  padding: 5px;
+  color: white;
+}
+
+.crimson{
+  background-color: crimson;
+  padding: 5px;
+  color: white;
+}
+
+.orange{
+  background-color: orange;
+  padding: 5px;
+  color: white;
+}
+
+.greet{
+  text-transform: capitalize;
+}
+
+label{
+  display: inline-block;
+}
+
+.days{
+  display: inline-block;
+  margin-left: 35px;
+}
+
+.booked{
+  text-align: center;
+}
+
+.break{
+  display: block;
+  text-align: center;
+}
+
+.but{
+  text-align: center
+}
+
+span{
+  color: blue;
+  font-size: 1em;
+}
+
+.medium.material-icons{
+  font-size: 0.8em;
+}
+
+/* Larger than tablet */
+@media (max-width: 750px) {
+  .days{
+    display:block;
+    /* text-align: center */
+}
+}

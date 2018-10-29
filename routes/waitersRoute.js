@@ -1,5 +1,4 @@
 'use strict';
-
 module.exports = (waiterServices) => {
     const bookingOfDays = async (req, res, next) => {
         try {
@@ -27,27 +26,36 @@ module.exports = (waiterServices) => {
             next(err.stack);
         }
     };
+    const showAllShifts = async (req, res, next) => {
+        try {
+            let allShifts = await waiterServices.admin();
+            res.render('days', { allShifts });
+        } catch (err) {
+            next(err.stack);
+        }
+    };
 
-    // const goToHome = async (req, res, next) => {
-    //     try {
-    //         res.render('home');
-    //     } catch (err) {
-    //         next(err.stack);
-    //     }
-    // };
-    // const clear = async (req, res, next) => {
-    //     try {
-    //         await waiterServices.reset();
-    //         res.redirect('/days');
-    //     } catch (err) {
-    //         next(err.stack);
-    //     }
-    // };
+    const goToHome = async (req, res, next) => {
+        try {
+            res.render('home');
+        } catch (err) {
+            next(err.stack);
+        }
+    };
+    const clear = async (req, res, next) => {
+        try {
+            await waiterServices.reset();
+            res.redirect('/days');
+        } catch (err) {
+            next(err.stack);
+        }
+    };
 
     return {
         bookingOfDays,
-        getBookingOfDays
-        // goToHome,
-        // clear
+        showAllShifts,
+        getBookingOfDays,
+        goToHome,
+        clear
     };
 };

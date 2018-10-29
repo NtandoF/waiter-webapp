@@ -1,4 +1,3 @@
-
 const express = require('express');
 const exphbs = require('express-handlebars');
 const session = require('express-session');
@@ -50,15 +49,15 @@ app.use(session({
 
 app.use(flash());
 
-// app.post('/waiters/:username', waitersRoutes.bookingOfDays);
+app.post('/waiters/:username', waitersRoutes.bookingOfDays);
 
 app.get('/waiters/:username', waitersRoutes.getBookingOfDays);
 
-// app.get('/', waitersRoutes.goToHome);
+app.get('/', waitersRoutes.goToHome);
 
-// app.get('/days', waitersRoutes.showAllShifts);
+app.get('/days', waitersRoutes.showAllShifts);
 
-// app.get('/clear', waitersRoutes.clear);
+app.get('/clear', waitersRoutes.clear);
 
 // configure the port number using and environment number
 var portNumber = process.env.PORT || 3009;
