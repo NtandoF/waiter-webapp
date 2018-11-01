@@ -52,6 +52,11 @@ label{
   display: inline-block;
 }
 
+.flow-text{
+  text-align: center;
+  font-size: 20px;
+}
+
 .days{
   display: inline-block;
   margin-left: 35px;
@@ -83,6 +88,5 @@ span{
 @media (max-width: 750px) {
   .days{
     display:block;
-    /* text-align: center */
-}
+  }
 }

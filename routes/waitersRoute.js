@@ -14,12 +14,14 @@ module.exports = (waiterServices) => {
     const getBookingOfDays = async (req, res, next) => {
         try {
             let username = req.params.username;
-            let checkwaiter = await (username);
+            // await waiterServices.waitersNames(username);
+            let checkwaiter = await waiterServices.checkWaiter(username);
             if (checkwaiter === 'welcome') {
                 req.flash('greet', `Welcome ${username} please select the days you want to book`);
             } else if (checkwaiter === 'exist') {
                 req.flash('greet', `${username} here are your days you have booked`);
             }
+
             let displayDays = await waiterServices.waitersNames(username);
             res.render('waiters', { username, displayDays });
         } catch (err) {
