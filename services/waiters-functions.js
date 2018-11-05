@@ -7,7 +7,6 @@ module.exports = (pool) => {
 
     const waitersNames = async (name) => {
         let days = await getWeekDays();
-        //console.log(days);
         name = name.charAt(0).toUpperCase() + name.slice(1);
         let nameExists = await pool.query('Select 1 from waiters WHERE names = $1', [name]);
         if (nameExists.rows.length === 0) {
@@ -16,7 +15,6 @@ module.exports = (pool) => {
         } else if (nameExists.rows.length === 1) {
             let waiterDays = await pool.query('SELECT waiters.names, weekdays.weekday FROM days_booked INNER JOIN waiters ON days_booked.name_id = waiters.id INNER JOIN weekdays ON days_booked.daybooked_id = weekdays.id where names=$1', [name]);
             console.log(waiterDays.rows);
-            
             let waitershift = waiterDays.rows;
             for (let weekday of days) {
                 for (let shiftDays of waitershift) {

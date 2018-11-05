@@ -1,29 +1,45 @@
+<head>
+  <meta charset="utf8">
+  <title></title>
+  <link rel="stylesheet" href="/normalize.css" type="text">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<br>
 
-<div class="row">
-  <Legend>Color-codes</Legend>
-<h6><i style="color:red" class="tiny material-icons">fiber_manual_record</i>No Waiter booked/ over subscribed for the day</h6>
-<h6><i style="color:green" class="tiny material-icons">fiber_manual_record</i> Enough Waiters For The day</h6>
-<h6><i style="color:orange" class="tiny material-icons">fiber_manual_record</i>More Waiters Are Needed </h6>
-</div>
-<div class="row">
-  {{#each allShifts }}
-    <div class=" test col s12 m6 l1">
-   <h5 class="booked {{color}}"> {{weekday}}</h5>
-    {{#each waiter}}
-     <h6>{{names}}</h6>
-     {{/each}}
-    </div>  
+ <div class="heading1">
+<h1 style="font-size:50px;">People Greeted</h1>
+<br>
+<form action="/" method="get">
+ <button class="button-primary homeBtn" type="submit" name="HomeButton">Home</button>
+</form>
+<table>
+    <tr>
+        <th>
+             Names 
+            <br>
+        </th>
+        
+        <th>
+            language
+            <br>
+        </th>
+         <th>
+            Count
+        </th>
+    </tr>
+    {{#each usersGreeted}}
+    <tr>
+        <td>
+        <a href="/users/{{name}}">{{name}}</a> 
+        </td>
+         <td>
+           {{language}} 
+        </td>
+        <td>
+         {{count}}
+        </td>
+    </tr>
     {{/each}}
-   </div> 
-    <br>
-    <div class="row">
-      <div class="break col s10">
-<a href="/clear"><button style="padding:10px; background-color:rgb(98, 153, 185); color:white">Reset</button></a>
-</div> 
-    </div>
-
-     
-
-
-    
-  
+</table>
+</div>
