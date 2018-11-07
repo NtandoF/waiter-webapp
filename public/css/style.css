@@ -57,6 +57,11 @@ label{
   font-size: 20px;
   border: 5px solid gray;
 }
+.homepage{
+ text-align:center;
+ box-shadow: 0 8px 6px -6px black;
+  box-shadow: 0 -100px 550px 370px rgb(173, 164, 164);
+}
 
 .flow-texts{
   font-size: 20px;
