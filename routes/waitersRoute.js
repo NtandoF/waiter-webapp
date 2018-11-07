@@ -4,7 +4,10 @@ module.exports = (waiterServices) => {
         try {
             let username = req.params.username;
             let days = Array.isArray(req.body.day) ? req.body.day : [req.body.day];
-            await waiterServices.bookingOfDays(username, days);
+            let message = await waiterServices.bookingOfDays(username, days);
+            if (message) {
+                req.flash('updated', message);
+            }
             res.redirect('/waiters/' + username);
         } catch (err) {
             next(err.stack);
@@ -19,9 +22,10 @@ module.exports = (waiterServices) => {
             if (checkwaiter === 'welcome') {
                 req.flash('greet', `Welcome ${username} please select the days you want to book`);
             } else if (checkwaiter === 'exist') {
-                req.flash('greet', `${username} here are your days you have booked`);
+                req.flash('greet', `${username} here are the days you have`);
+            } else {
+                req.flash('greet', `${username} here are the days that you have updated`);
             }
-
             let displayDays = await waiterServices.waitersNames(username);
             res.render('waiters', { username, displayDays });
         } catch (err) {

@@ -8,11 +8,11 @@ module.exports = (pool) => {
     const waitersNames = async (name) => {
         let days = await getWeekDays();
         name = name.charAt(0).toUpperCase() + name.slice(1);
-        let nameExists = await pool.query('Select 1 from waiters WHERE names = $1', [name]);
-        if (nameExists.rows.length === 0) {
+        let nameExists = await pool.query('Select * from waiters WHERE names = $1', [name]);
+        if (nameExists.rowCount === 0) {
             await pool.query('INSERT INTO waiters(names) VALUES($1)', [name]);
             return days;
-        } else if (nameExists.rows.length === 1) {
+        } else if (nameExists.rowCount === 1) {
             let waiterDays = await pool.query('SELECT waiters.names, weekdays.weekday FROM days_booked INNER JOIN waiters ON days_booked.name_id = waiters.id INNER JOIN weekdays ON days_booked.daybooked_id = weekdays.id where names=$1', [name]);
             console.log(waiterDays.rows);
             let waitershift = waiterDays.rows;
@@ -30,30 +30,42 @@ module.exports = (pool) => {
 
     const bookingOfDays = async (enteredName, scheduleday) => {
         enteredName = enteredName.charAt(0).toUpperCase() + enteredName.slice(1);
-        let waiter = await pool.query('SELECT * FROM waiters where names = $1', [enteredName]);
-        let userID = waiter.rows[0].id;
-        // console.log(userID);
+        try {
+            let waiter = await pool.query('SELECT * FROM waiters where names = $1', [enteredName]);
+            let userID = waiter.rows[0].id;
+            let shifts = await pool.query('SELECT * FROM days_booked where name_id = $1', [userID]);
+            let message = '';
 
-        if (userID) {
-            await pool.query('DELETE FROM days_booked WHERE name_id=$1', [userID]);
-        }
-        for (let dayId of scheduleday) {
-            if (dayId) {
-                let foundId = await pool.query('SELECT id From weekdays WHERE weekday=$1', [dayId]);
-                await pool.query('INSERT INTO days_booked(name_id, daybooked_id) VALUES($1,$2)', [userID, foundId.rows[0].id]);
+            if (shifts.rowCount > 0) {
+                await pool.query('DELETE FROM days_booked WHERE name_id=$1', [userID]);
+                message = 'updated';
             } else {
-                return;
+                message = 'added';
             }
+            for (let dayId of scheduleday) {
+                if (dayId) {
+                    let foundId = await pool.query('SELECT id From weekdays WHERE weekday=$1', [dayId]);
+                    await pool.query('INSERT INTO days_booked(name_id, daybooked_id) VALUES($1,$2)', [userID, foundId.rows[0].id]);
+                } else {
+                    return;
+                }
+            }
+            return message;
+        } catch (err) {
+            return 'User not found';
         }
     };
 
     const checkWaiter = async (enteredName) => {
         enteredName = enteredName.charAt(0).toUpperCase() + enteredName.slice(1);
-        let waiter = await pool.query('Select 1 from waiters WHERE names = $1', [enteredName]);
-        if (waiter.rows.length === 0) {
+        let waiter = await pool.query('Select * from waiters WHERE names = $1 limit 1', [enteredName]);
+        console.log(waiter);
+        if (waiter.rowCount === 0) {
             return 'welcome';
-        } else if (waiter.rows.length === 1) {
+        } else if (waiter.rowCount === 1) {
             return 'exist';
+        } else {
+            return 'updated';
         }
     };
 
