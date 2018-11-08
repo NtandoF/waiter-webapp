@@ -55,7 +55,7 @@ app.get('/waiters/:username', waitersRoutes.getBookingOfDays);
 
 app.get('/', waitersRoutes.goToHome);
 
-// app.get('/days', waitersRoutes.showAllShifts);
+app.get('/days', waitersRoutes.showAllShifts);
 
 app.get('/clear', waitersRoutes.clear);
 

@@ -68,7 +68,14 @@ module.exports = (pool) => {
             return 'updated';
         }
     };
-
+    const admin = async () => {
+        let days = await getWeekDays();
+        for (let dayofweek of days) {
+            let getAllShifts = await pool.query('SELECT waiters.names as names FROM days_booked INNER JOIN waiters ON days_booked.name_id = waiters.id INNER JOIN weekdays ON days_booked.daybooked_id = weekdays.id where weekdays.id = $1 ORDER BY names', [dayofweek.id]);
+            dayofweek.waiter = getAllShifts.rows;
+        }
+        return days;
+    };
     const reset = async () => {
         let resetSchedule = await pool.query('DELETE FROM waiters');
         return resetSchedule.rows;
@@ -76,6 +83,7 @@ module.exports = (pool) => {
 
     return {
         waitersNames,
+        admin,
         bookingOfDays,
         getWeekDays,
         checkWaiter,

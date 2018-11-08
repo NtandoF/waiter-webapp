@@ -35,6 +35,7 @@ module.exports = (waiterServices) => {
     const showAllShifts = async (req, res, next) => {
         try {
             let allShifts = await waiterServices.admin();
+            // console.log('all shifts', allShifts);
             res.render('days', { allShifts });
         } catch (err) {
             next(err.stack);
