@@ -6,6 +6,9 @@
   width: 1000px;
   height: 670px;
 }
+.booked{
+  margin-left: 12px;
+}
 
 h3{
   text-align: center
@@ -62,6 +65,12 @@ label{
  box-shadow: 0 8px 6px -6px black;
   box-shadow: 0 -100px 550px 370px rgb(173, 164, 164);
 }
+
+#homepages{
+  text-align:center;
+  box-shadow: 0 8px 6px -6px black;
+   color: 0 -80px 1000px 100px rgb(173, 164, 164);
+ }
 
 .flow-texts{
   font-size: 20px;

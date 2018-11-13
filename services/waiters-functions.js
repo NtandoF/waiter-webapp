@@ -73,6 +73,13 @@ module.exports = (pool) => {
         for (let dayofweek of days) {
             let getAllShifts = await pool.query('SELECT waiters.names as names FROM days_booked INNER JOIN waiters ON days_booked.name_id = waiters.id INNER JOIN weekdays ON days_booked.daybooked_id = weekdays.id where weekdays.id = $1 ORDER BY names', [dayofweek.id]);
             dayofweek.waiter = getAllShifts.rows;
+            if (dayofweek.waiter.length === 3) {
+                dayofweek.color = 'green';
+            } else if (dayofweek.waiter.length > 3 || dayofweek.waiter.length === 0) {
+                dayofweek.color = 'crimson';
+            } else if (dayofweek.waiter.length < 3 && dayofweek.waiter.length > 0) {
+                dayofweek.color = 'orange';
+            }
         }
         return days;
     };
