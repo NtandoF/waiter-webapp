@@ -16,11 +16,17 @@ describe('It should store names of the waiters', function () {
         await pool.query('DELETE FROM waiters');
         await pool.query('DELETE FROM days_booked');
     });
-    it('Add names to the database', async () => {
+    it('Add a name to the database', async () => {
         let waitersData = waitersFunctions(pool);
         await waitersData.waitersNames('Ntando');
         let allNames = await pool.query('SELECT * FROM waiters');
         assert.equal(allNames.rows[0].names, 'Ntando');
+    });
+    it('Add names to the database', async () => {
+        let waitersData = waitersFunctions(pool);
+        await waitersData.waitersNames('Yawa, Zinzi, Lungi, Vuyo');
+        let allNames = await pool.query('SELECT * FROM waiters');
+        assert.equal(allNames.rows[0].names, 'Yawa, Zinzi, Lungi, Vuyo');
     });
     it('Return days that has been booked by the waiter', async () => {
         let waitersData = waitersFunctions(pool);
@@ -36,25 +42,25 @@ describe('It should store names of the waiters', function () {
             { id: 6, weekday: 'Saturday' },
             { id: 7, weekday: 'Sunday' }]);
     });
-    it('Show all the days booked by the waiters ', async () => {
-        let waitersData = waitersFunctions(pool);
-        await waitersData.getWeekDays();
-        await waitersData.waitersNames('Ntando');
-        await waitersData.waitersNames('Tido');
-        await waitersData.bookingOfDays('Ntando', ['Monday', 'Tuesday']);
-        await waitersData.bookingOfDays('Tido', ['Wednesday', 'Friday']);
-        await waitersData.waitersNames('Ntando');
-        await waitersData.waitersNames('Tido');
-        let admin = await waitersData.admin();
-        assert.deepEqual(admin, [
-            { id: 1, weekday: 'Monday', waiter: [ { 'names': 'Ntando' } ], color: 'orange' },
-            { id: 2, weekday: 'Tuesday', waiter: [ { 'names': 'Ntando' } ], color: 'orange' },
-            { id: 3, weekday: 'Wednesday', waiter: [ { 'names': 'Tido' } ], color: 'orange' },
-            { id: 4, weekday: 'Thursday', waiter: [], color: 'crimson' },
-            { id: 5, weekday: 'Friday', waiter: [ { 'names': 'Tido' } ], color: 'orange' },
-            { id: 6, weekday: 'Saturday', waiter: [], color: 'crimson' },
-            { id: 7, weekday: 'Sunday', waiter: [], color: 'crimson' }]);
-    });
+    // it('Show all the days booked by the waiters ', async () => {
+    //     let waitersData = waitersFunctions(pool);
+    //     await waitersData.getWeekDays();
+    //     await waitersData.waitersNames('Ntando');
+    //     await waitersData.waitersNames('Tido');
+    //     await waitersData.bookingOfDays('Ntando', ['Monday', 'Tuesday']);
+    //     await waitersData.bookingOfDays('Tido', ['Wednesday', 'Friday']);
+    //     await waitersData.waitersNames('Ntando');
+    //     await waitersData.waitersNames('Tido');
+    //     let admin = await waitersData.admin();
+    //     assert.deepEqual(admin, [
+    //         { id: 1, weekday: 'Monday', waiter: [ { 'names': 'Ntando' } ], color: 'orange' },
+    //         { id: 2, weekday: 'Tuesday', waiter: [ { 'names': 'Ntando' } ], color: 'orange' },
+    //         { id: 3, weekday: 'Wednesday', waiter: [ { 'names': 'Tido' } ], color: 'orange' },
+    //         { id: 4, weekday: 'Thursday', waiter: [], color: 'crimson' },
+    //         { id: 5, weekday: 'Friday', waiter: [ { 'names': 'Tido' } ], color: 'orange' },
+    //         { id: 6, weekday: 'Saturday', waiter: [], color: 'crimson' },
+    //         { id: 7, weekday: 'Sunday', waiter: [], color: 'crimson' }]);
+    // });
     // it('Add colour crimson for the overbooking or no booking, orange below 3 booked waiters and green for 3 booked waiters', async () => {
     //     let waitersData = waitersFunctions(pool);
     //     await waitersData.getWeekDays();

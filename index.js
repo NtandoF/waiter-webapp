@@ -60,7 +60,7 @@ app.get('/days', waitersRoutes.showAllShifts);
 app.get('/clear', waitersRoutes.clear);
 
 // configure the port number using and environment number
-var portNumber = process.env.PORT || 3009;
+var portNumber = process.env.PORT || 3008;
 
 // start everything up
 app.listen(portNumber, function () {

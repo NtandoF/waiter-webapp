@@ -14,7 +14,7 @@ module.exports = (pool) => {
             return days;
         } else if (nameExists.rowCount === 1) {
             let waiterDays = await pool.query('SELECT waiters.names, weekdays.weekday FROM days_booked INNER JOIN waiters ON days_booked.name_id = waiters.id INNER JOIN weekdays ON days_booked.daybooked_id = weekdays.id where names=$1', [name]);
-            console.log(waiterDays.rows);
+            // console.log(waiterDays.rows);
             let waitershift = waiterDays.rows;
             for (let weekday of days) {
                 for (let shiftDays of waitershift) {
